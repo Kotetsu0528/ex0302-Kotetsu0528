@@ -1,24 +1,77 @@
 package com.example.myapplication;
 
-import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    EditText etLeft, etRight;
+    Spinner spOperator;
+    Button btnCalc;
+    TextView tvResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        etLeft = findViewById(R.id.etLeft);
+        etRight = findViewById(R.id.etRight);
+        spOperator = findViewById(R.id.spOperator);
+        btnCalc = findViewById(R.id.btnCalc);
+        tvResult = findViewById(R.id.tvResult);
+
+        // Spinner に + - * / をセット
+        ArrayAdapter<CharSequence> adapter =
+                ArrayAdapter.createFromResource(this, R.array.operators,
+                        android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spOperator.setAdapter(adapter);
+
+        btnCalc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // 空チェック
+                if (etLeft.getText().toString().isEmpty() ||
+                        etRight.getText().toString().isEmpty()) {
+                    tvResult.setText("計算エラー");
+                    return;
+                }
+
+                int left = Integer.parseInt(etLeft.getText().toString());
+                int right = Integer.parseInt(etRight.getText().toString());
+                String op = spOperator.getSelectedItem().toString();
+
+                int result = 0;
+                switch (op) {
+                    case "+":
+                        result = left + right;
+                        break;
+                    case "-":
+                        result = left - right;
+                        break;
+                    case "*":
+                        result = left * right;
+                        break;
+                    case "/":
+                        if (right == 0) {
+                            tvResult.setText("計算エラー");
+                            return;
+                        }
+                        result = left / right;
+                        break;
+                }
+
+                tvResult.setText("計算結果: " + result);
+            }
         });
     }
 }
