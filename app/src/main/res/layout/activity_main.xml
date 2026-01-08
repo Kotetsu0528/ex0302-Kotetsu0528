@@ -20,8 +20,8 @@
 
     <Spinner
         android:id="@+id/spOperator"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toStartOf="@id/etRight"
@@ -30,9 +30,8 @@
 
     <EditText
         android:id="@+id/etRight"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
         android:hint="0"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,9 +40,9 @@
 
     <EditText
         android:id="@+id/etLeft"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
         android:hint="0"
         android:inputType="number"
